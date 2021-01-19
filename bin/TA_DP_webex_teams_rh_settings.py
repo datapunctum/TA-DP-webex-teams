@@ -90,8 +90,17 @@ fields_logging = [
 ]
 model_logging = RestModel(fields_logging, name='logging')
 
-
+# TODO Must change line:101 to be regex="(^https:\/\/[^\s]+)"
 fields_additional_parameters = [
+    field.RestField(
+        'redirect_uri',
+        required=False,
+        encrypted=False,
+        default='',
+        validator=validator.Pattern(
+            regex="(^https:\/\/[^\s]+)",
+        )
+    ),
     field.RestField(
         'client_id',
         required=True,
@@ -105,46 +114,6 @@ fields_additional_parameters = [
     field.RestField(
         'client_secret',
         required=True,
-        encrypted=True,
-        default='',
-        validator=validator.String(
-            min_len=0, 
-            max_len=8192, 
-        )
-    ), 
-    field.RestField(
-        'refresh_token_1',
-        required=True,
-        encrypted=True,
-        default='',
-        validator=validator.String(
-            min_len=0, 
-            max_len=8192, 
-        )
-    ), 
-    field.RestField(
-        'refresh_token_2',
-        required=False,
-        encrypted=True,
-        default='',
-        validator=validator.String(
-            min_len=0, 
-            max_len=8192, 
-        )
-    ), 
-    field.RestField(
-        'refresh_token_3',
-        required=False,
-        encrypted=True,
-        default='',
-        validator=validator.String(
-            min_len=0, 
-            max_len=8192, 
-        )
-    ), 
-    field.RestField(
-        'refresh_token_4',
-        required=False,
         encrypted=True,
         default='',
         validator=validator.String(
